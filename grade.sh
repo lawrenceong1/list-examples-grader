@@ -40,3 +40,5 @@ filename=$(basename --suffix=.class grading-area/*.class)
 # Run the tests and report the grade based on the JUnit output. You should add this
 # Again output redirection will be useful, and also tools like grep could be helpful here
 java -cp $CPATH:grading-area org.junit.runner.JUnitCore $filename > grading-area/grade.txt
+
+#testing this to see if it updates
