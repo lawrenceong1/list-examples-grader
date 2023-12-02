@@ -11,6 +11,17 @@ class IsMoon implements StringChecker {
   }
 }
 
+class StringCheck implements StringChecker {
+  public boolean checkString(String s) {
+    if (s instanceof String) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+}
+
 public class TestListExamples {
   @Test(timeout = 500)
   public void testMergeRightEnd() {
@@ -29,6 +40,31 @@ public class TestListExamples {
         testList.add("b");
         testList.add("c");
         testList.add("d");
-        assertEquals("a, b, c, d", ListExamples.filter(testList, sc));
+        List<String> expected = Arrays.asList("a", "b", "c", "d");
+        assertEquals(expected, ListExamples.filter(testList, sc));
+    }
+
+    @Test
+    public void testFilter() {
+      List<String> list = Arrays.asList("moon", "sun", "earth", "mars");
+      StringChecker sc = new IsMoon();
+      List<String> result = ListExamples.filter(list, sc);
+      assertEquals(Arrays.asList("moon"), result);
+    }
+  
+    @Test
+    public void testMerge() {
+      List<String> list1 = Arrays.asList("apple", "banana", "cherry");
+      List<String> list2 = Arrays.asList("date", "elderberry", "fig");
+      List<String> result = ListExamples.merge(list1, list2);
+      assertEquals(Arrays.asList("apple", "banana", "cherry", "date", "elderberry", "fig"), result);
+    }
+  
+    @Test
+    public void testMergeWithOverlap() {
+      List<String> list1 = Arrays.asList("apple", "banana", "cherry");
+      List<String> list2 = Arrays.asList("banana", "cherry", "date");
+      List<String> result = ListExamples.merge(list1, list2);
+      assertEquals(Arrays.asList("apple", "banana", "banana", "cherry", "cherry", "date"), result);
     }
 }
